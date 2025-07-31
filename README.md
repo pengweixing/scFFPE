@@ -1,7 +1,7 @@
 This repository is for single cell FFPE project
 
 
-### software recommendation
+### software requrements
     - Python 3.9.16
     - computeMatrix 3.5.1
     - bamCoverage 3.5.1
@@ -14,7 +14,7 @@ This repository is for single cell FFPE project
     - macs2 2.1.2
     - snakename 7.18.2
     
-### packages requrements
+### package requrements
     python:
         pysam = '0.22.0'
         fuzzywuzzy = '0.18.0'
@@ -32,4 +32,4 @@ This repository is for single cell FFPE project
       - install all required softwares and packages
       
 ### usage
-    Please check the script in example folder
+    Please check the script in the example folder
