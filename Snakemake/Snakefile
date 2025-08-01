@@ -299,18 +299,13 @@ rule Extract_Cell:
         bamcell="02.mapping/{groupname}.rmdup.merge.pair.singlcell.sort.bam",
         bamcellbai="02.mapping/{groupname}.rmdup.merge.pair.singlcell.sort.bam.bai"
     output:
-        selectedbam_f_sort="07.singlecell/{groupname}"+"_Unique{Frags}_selected.singlecell.sort.bam".format(Frags=config['unique_frags'],FRiP=config['FRiP']),
-        selectedbam_f_sort_bai="07.singlecell/{groupname}"+"_Unique{Frags}_selected.singlecell.sort.bam.bai".format(Frags=config['unique_frags'],FRiP=config['FRiP']),
         selectedfrags_f=temp("07.singlecell/{groupname}"+"_Unique{Frags}_selected.singlecell.fragments".format(Frags=config['unique_frags'])),
         selectedfrags2_f="07.singlecell/{groupname}"+"_Unique{Frags}_selected.singlecell.fragments.gz".format(Frags=config['unique_frags']),
-        
-        selectedbam_sort="07.singlecell/{groupname}"+"_Unique{Frags}_FRiP{FRiP}_selected.singlecell.sort.bam".format(Frags=config['unique_frags'],FRiP=config['FRiP']),
-        selectedbam_sort_bai="07.singlecell/{groupname}"+"_Unique{Frags}_FRiP{FRiP}_selected.singlecell.sort.bam.bai".format(Frags=config['unique_frags'],FRiP=config['FRiP']),
+        selectedbam_f=temp("07.singlecell/{groupname}"+"_Unique{Frags}_selected.singlecell.bam".format(Frags=config['unique_frags'],FRiP=config['FRiP'])), 
+	selectedbam=temp("07.singlecell/{groupname}"+"_Unique{Frags}_FRiP{FRiP}_selected.singlecell.bam".format(Frags=config['unique_frags'],FRiP=config['FRiP'])),
         selectedfrags=temp("07.singlecell/{groupname}"+"_Unique{Frags}_FRiP{FRiP}_selected.singlecell.fragments".format(Frags=config['unique_frags'],FRiP=config['FRiP'])),
         selectedfrags2="07.singlecell/{groupname}"+"_Unique{Frags}_FRiP{FRiP}_selected.singlecell.fragments.gz".format(Frags=config['unique_frags'],FRiP=config['FRiP']),
-        
-        selectedbam_t_sort="07.singlecell/{groupname}"+"_Unique{Frags}_FRiT{FRiT}_selected.singlecell.sort.bam".format(Frags=config['unique_frags'],FRiT=config['FRiT']),
-        selectedbam_t_sort_bai="07.singlecell/{groupname}"+"_Unique{Frags}_FRiT{FRiT}_selected.singlecell.sort.bam.bai".format(Frags=config['unique_frags'],FRiT=config['FRiT']),
+        selectedbam_t=temp("07.singlecell/{groupname}"+"_Unique{Frags}_FRiT{FRiT}_selected.singlecell.bam".format(Frags=config['unique_frags'],FRiT=config['FRiT'])), 
         selectedfrags_t=temp("07.singlecell/{groupname}"+"_Unique{Frags}_FRiT{FRiT}_selected.singlecell.fragments".format(Frags=config['unique_frags'],FRiT=config['FRiT'])),
         selectedfrags2_t="07.singlecell/{groupname}"+"_Unique{Frags}_FRiT{FRiT}_selected.singlecell.fragments.gz".format(Frags=config['unique_frags'],FRiT=config['FRiT']),
    
@@ -325,14 +320,7 @@ rule Extract_Cell:
     shell:
         "{params.python_main} {params.extractcell} -n {input.FRiPcellnames}  -f {input.fragments} "
         "-b {input.bamcell} -ob {output.selectedbam} -of {output.selectedfrags} && bgzip -c {output.selectedfrags} > {output.selectedfrags2}"
-        " && {params.sambamba} sort -t 5 {output.selectedbam} -o {output.selectedbam_sort} && {params.sambamba} index -t 5 {output.selectedbam_sort} && "
-
-        " {params.python_main} {params.extractcell} -n {input.FRiTcellnames}  -f {input.fragments} "
+        " && {params.python_main} {params.extractcell} -n {input.FRiTcellnames}  -f {input.fragments} "
         "-b {input.bamcell} -ob {output.selectedbam_t} -of {output.selectedfrags_t} && bgzip -c {output.selectedfrags_t} > {output.selectedfrags2_t}"
-        " && {params.sambamba} sort -t 5 {output.selectedbam_t} -o {output.selectedbam_t_sort} && {params.sambamba} index -t 5 {output.selectedbam_t_sort} && "
-
-        " {params.python_main} {params.extractcell} -n {input.Fragscellname}  -f {input.fragments} "
+        " && {params.python_main} {params.extractcell} -n {input.Fragscellname}  -f {input.fragments} "
         "-b {input.bamcell} -ob {output.selectedbam_f} -of {output.selectedfrags_f} && bgzip -c {output.selectedfrags_f} > {output.selectedfrags2_f}"
-        " && {params.sambamba} sort -t 5 {output.selectedbam_f} -o {output.selectedbam_f_sort} && {params.sambamba} index -t 5 {output.selectedbam_f_sort}"
-
-
