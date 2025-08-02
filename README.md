@@ -34,7 +34,71 @@ This repository is for single cell FFPE project
 ### usage
     
     Please check the script in the example folder
-    
+
+### input format and requirements for debarcoding
+- DNA structure:
+R2 sequence with four structures: 5' -> 3'                                                                      <--- R1
+cell_bc1              cell_bc2             cell_bc3    linker   sample_index
+ACGATTGNNNNNNNNNNNNNNNAAACCGGNNNNNNNNNNNNNNNACCCTAANNNNNNNNNNNNNNNAGANNNNNNNNNNNNNNNNNNN   -> ME -> genomicDNA -> ME-rev-com ->
+ACGATTGNNNNNNNNNNNNNNNNAAACCGGNNNNNNNNNNNNNNNACCCTAANNNNNNNNNNNNNNNAGANNNNNNNNNNNNNNNNNNN   -> ME -> genomicDNA -> ME-rev-com ->
+ACGATTGNNNNNNNNNNNNNNNNNAAACCGGNNNNNNNNNNNNNNNACCCTAANNNNNNNNNNNNNNNAGANNNNNNNNNNNNNNNNNNN   -> ME -> genomicDNA -> ME-rev-com ->
+ACGATTGNNNNNNNNNNNNNNNNNNAAACCGGNNNNNNNNNNNNNNNACCCTAANNNNNNNNNNNNNNNAGANNNNNNNNNNNNNNNNNNN   -> ME -> genomicDNA -> ME-rev-com ->
+
+- barcode.txt
+first column is unique sample index
+[Sample_index]
+Tn5_1	ATC
+Tn5_2	TGA
+Tn5_3	GCT
+Tn5_4	CAG
+Tn5_5	AGA
+Tn5_6	TCT
+Tn5_7	GAG
+...
+[Cell_BC1]
+R02_\#01	AAACCGG
+R02_\#02	AAACGTC
+R02_\#03	AAAGATG
+R02_\#04	AAATCCA
+R02_\#05	AAATGAG
+...
+[Cell_BC2]
+R02_\#01	AAACCGG
+R02_\#02	AAACGTC
+R02_\#03	AAAGATG
+R02_\#04	AAATCCA
+R02_\#05	AAATGAG
+...
+[Cell_BC3]
+R02_\#01	AAACCGG
+R02_\#02	AAACGTC
+R02_\#03	AAAGATG
+R02_\#04	AAATCCA
+R02_\#05	AAATGAG
+...
+
+`python fastq_debarcoding.allow_mismatch.v3.1.py -r1 temp.50m.R1_001.fastq.gz -r2 temp.50m.R2_001.fastq.gz -b barcode.txt -o 01.debarcoding_17 -p 20 -ml 17`
+
+### input requirements for single cell data processing
+
+- sample.group
+The first column contains the sample name for each unique sample index
+The second column contains the sample index, which matches the entries in barcode.txt.
+
+Spleen    Tn5_1
+Spleen    Tn5_2
+Spleen    Tn5_3
+Spleen    Tn5_4
+Spleen    Tn5_5
+Spleen    Tn5_6
+Spleen    Tn5_7
+Spleen    Tn5_8
+Spleen    Tn5_9
+Spleen    Tn5_10
+...
+
+`snakemake -s Snakefile  --configfile config.mm10.yaml --cores 40 --config quality=2 --config FRiT=15 --config unique_frags=200`
+
 #### If you want to extract cells based on FRiP or FRiT mannully
     please run the `extract_cell.sh` script
 

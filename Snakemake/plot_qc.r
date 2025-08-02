@@ -14,7 +14,8 @@ spec <- matrix(
     "FRiP", "p", 2, "integer", "FRiP value",
     "FRiT", "t", 2, "integer", "FRiT value",
     "input", "i", 2, "character", "Input: single cell table",
-    "number", "n", 2, "character", "the unique fragments number",
+    "min_num", "n", 2, "character", "minimum of the unique fragments number",
+    "max_num", "n", 2, "character", "maximum of the unique fragments number",
     "output", "o", 2, "character", "The output name!",
     "help",   "h", 0, "logical",  "Rscript plot_qc.r -p 5 -t 10 -i Spleen.singlecell.qc.txt -o spleen"),
   byrow = TRUE, ncol = 5 
@@ -22,7 +23,11 @@ spec <- matrix(
 
 opt <- getopt(spec = spec)
 
-number =  as.numeric(opt$number)
+if (is.null(opt$min_num)) opt$min_num <- "500"  # Default min fragments
+if (is.null(opt$max_num)) opt$max_num <- "100000" # Default max fragments
+
+min_num =  as.numeric(opt$min_num)
+max_num =  as.numeric(opt$max_num)
 FRiP_value <- as.numeric(opt$FRiP)
 FRiT_value <- as.numeric(opt$FRiT)
 data <- read.table(opt$input,header=T)
