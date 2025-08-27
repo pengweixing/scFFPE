@@ -4,6 +4,9 @@
 This repository contains the pipeline and scripts for processing single-cell FFPE data.
 
 ---
+## workflow
+
+![Workflow](workflow.jpg)
 
 ## Software Requirements
 
