@@ -4,7 +4,7 @@
 This repository contains the pipeline and scripts for processing single-cell FFPE data.
 
 ---
-## workflow
+## workflow for scFFPE data preprocessing
 
 ![Workflow](workflow.jpg)
 
