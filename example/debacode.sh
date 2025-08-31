@@ -6,3 +6,5 @@
 #################################################
 
 python fastq_debarcoding.allow_mismatch.v3.1.py -r1 1m.R1_001.fastq.gz -r2 1m.R2_001.fastq.gz -b barcode.txt -o 01.debarcoding -p 20 -ml 40
+# -ml minimum lenth
+# -p processors

@@ -2,8 +2,8 @@
 #  File Name:fastq_to_10x.py
 #  Author: xingpengwei
 #  Mail: xingwei421@qq.com, pengweixing@igp.uu.se
-#  Created Time: Thu Nov 25 17:31:28 2021
-#  verssion: v2, write out the undecoded reads or short reads
+#  Created Time: Thu Nov 25 17:31:28 2022
+#  verssion: v3.1
 #################################################
 ## compre to 3.0, make it more fast
 HELP = """ Example:
