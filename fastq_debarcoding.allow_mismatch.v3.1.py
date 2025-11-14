@@ -1,11 +1,11 @@
 #################################################
 #  File Name:fastq_to_10x.py
 #  Author: xingpengwei
-#  Mail: xingwei421@qq.com, pengweixing@igp.uu.se
+#  Mail: xpw1992@gmail.com, pengweixing@igp.uu.se
 #  Created Time: Thu Nov 25 17:31:28 2022
 #  verssion: v3.1
 #################################################
-## compre to 3.0, make it more fast
+## compre to 3.0,v3.1 is faster
 HELP = """ Example:
 ---------------------------------------------------------------------------
 R2 sequence with four structures: 5' -> 3'                                                                      <--- R1         
